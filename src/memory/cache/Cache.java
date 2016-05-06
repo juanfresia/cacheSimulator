@@ -176,6 +176,9 @@ public abstract class Cache implements MemorySystem, CacheDescriptor {
 	 */
 	public abstract CacheEntry[] cacheToArray();
 	
+	// TODO document this
+	public abstract CacheEntry getEntry(int entryNumber);
+	
 	/**
 	 * Gives the total number of entries of the cache.
 	 * 

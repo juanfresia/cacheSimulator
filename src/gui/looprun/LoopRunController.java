@@ -16,7 +16,7 @@ import gui.components.MemoryPanel;
 public class LoopRunController implements ActionListener {
 	private static final int DEFAULT_ITERATIONS = 20;
 	
-	// References to all componentes in the frame
+	// References to all components in the frame
 	private CachePanel panelL1;
 	private CachePanel panelL2;
 	private CachePanel panelL3;

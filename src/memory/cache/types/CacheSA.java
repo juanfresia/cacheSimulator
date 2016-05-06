@@ -6,11 +6,12 @@ import memory.MemorySystem;
 import memory.cache.Associativity;
 import memory.cache.Cache;
 import memory.cache.CacheEntry;
+import memory.cache.CacheLRU;
 
 /**
  * Set associative cache implementation (with LRU replacement policy)
  */
-public class CacheSA extends Cache implements MemorySystem {
+public class CacheSA extends Cache implements MemorySystem, CacheLRU {
 	
 	// This type of cache will be represented as array of sets. Each set will have
 	// as many entries as the number of ways, and will keep track of its own LRU information
@@ -136,7 +137,7 @@ public class CacheSA extends Cache implements MemorySystem {
 	private CacheSet[] cache_table;
 	private int sets;
 	private char sets_mag;
-	private char ways;
+	private int ways;
 	
 	// Default values
 	private final static int NUM_WAYS_DEF = 2;
@@ -179,6 +180,9 @@ public class CacheSA extends Cache implements MemorySystem {
 		}
 		this.next_level = new MainMemory();
 		
+		// TODO Arreglar esto
+		this.ways = this.info.associativity.getNumberWays();
+		
 		this.sets = cache_size/(block_size*ways);
 		this.sets_mag = compute_mag(sets);
 		
@@ -205,6 +209,13 @@ public class CacheSA extends Cache implements MemorySystem {
 		return address & mask;
 	}
 	
+	
+	/**
+	 * Returns the number of ways the cache has.
+	 */
+	public int getNumberOfWays() {
+		return this.ways;
+	}
 	
 	@Override
 	public void clean() {
@@ -283,9 +294,31 @@ public class CacheSA extends Cache implements MemorySystem {
 		}
 		return array;
 	}
+	
+	
+	@Override
+	public CacheEntry getEntry(int entryNumber) {
+		// If the entry number is not in range
+		if (entryNumber < 0 || entryNumber >= (this.info.cache_size/(this.info.block_size)))
+			return null;
+				
+		CacheSet actSet = this.cache_table[entryNumber / this.ways];
+		return actSet.blocks_in_set[entryNumber % this.ways];
+	}
+	
 	@Override
 	public int numberOfEntries() {
 		return this.info.cache_size/(this.info.block_size);
+	}
+	
+	@Override
+	public int getEntryLRUOrder(int entryNumber) {
+		// If the entry number is not in range
+		if (entryNumber < 0 || entryNumber >= (this.info.cache_size/(this.info.block_size)))
+			return -1;
+		
+		CacheSet actSet = this.cache_table[entryNumber / this.ways];
+		return actSet.lru_info[entryNumber % this.ways];
 	}
 
 	

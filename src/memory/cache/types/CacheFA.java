@@ -9,11 +9,12 @@ import memory.MemorySystem;
 import memory.cache.Associativity;
 import memory.cache.Cache;
 import memory.cache.CacheEntry;
+import memory.cache.CacheLRU;
 
 /**
  * Fully associative cache implementation (with LRU replacement policy)
  */
-public class CacheFA extends Cache implements MemorySystem {
+public class CacheFA extends Cache implements MemorySystem, CacheLRU {
 	
 	/* As the implementation will use an extension of LinkedHashMap to easily keep
 	 * track of LRU information; we need a way to keep track of the initial ordering
@@ -28,6 +29,7 @@ public class CacheFA extends Cache implements MemorySystem {
 		public CacheEntryFA() {
 			super();
 			this.position = 0;
+			this.valid = true;
 		}
 	}
 		
@@ -191,6 +193,42 @@ public class CacheFA extends Cache implements MemorySystem {
 		
 		return array;
 	}
+	
+
+	public int getEntryLRUOrder(int entryNumber) {
+		// If the entry number is not in range
+		if (entryNumber < 0 || entryNumber >= (this.entries))
+			return -1;
+		
+		Iterator<CacheEntryFA> iter = this.cache_table.values().iterator();
+		int i = 0;
+		while (iter.hasNext()) {
+			CacheEntryFA act = iter.next();
+			if (act.position == entryNumber)
+				return i;
+			i++;
+		}	
+		return entryNumber;
+		
+	}
+	
+	@Override
+	public CacheEntry getEntry(int entryNumber) {
+		// If the entry number is not in range
+		if (entryNumber < 0 || entryNumber >= (this.entries))
+			return null;
+		
+		Iterator<CacheEntryFA> iter = this.cache_table.values().iterator();
+		while (iter.hasNext()) {
+			CacheEntryFA act = iter.next();
+			if (act.position == entryNumber)
+				return act;
+		}		
+				
+		return new CacheEntry();
+	}
+	
+	
 	@Override
 	public int numberOfEntries() {
 		return this.info.cache_size/this.info.block_size;

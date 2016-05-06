@@ -146,6 +146,18 @@ public class CacheDM extends Cache implements MemorySystem {
 		
 		return array;
 	}
+	
+	
+	@Override
+	public CacheEntry getEntry(int entryNumber) {
+		// If the entry number is not in range
+		if (entryNumber < 0 || entryNumber >= (this.entries))
+			return null;
+		
+		return this.cache_table[entryNumber];
+	}
+	
+	
 	@Override
 	public int numberOfEntries() {		
 		return this.entries;
