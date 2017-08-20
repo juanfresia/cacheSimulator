@@ -9,21 +9,20 @@
 	</target>
 
 	<target name="compile" depends="init">
-		<javac srcdir="${src}" destdir="${build}">
+		<javac srcdir="${src}" destdir="${build}"
+			excludes="**/tests/*.*">
 			<classpath>
 				<pathelement path="lib/jcommon-1.0.23.jar"/>
 				<pathelement path="lib/jfreechart-1.0.19.jar"/>
-				<pathelement path="lib/junit-4.11.jar"/>
 			</classpath>
 		</javac>
 	</target>
 
 	<target name="dist" depends="compile">
-		<mkdir dir="${dist}/lib"/>
-		<jar jarfile="${dist}/lib/cacheSim-${DSTAMP}.jar" basedir="${build}">
+		<mkdir dir="${dist}/"/>
+		<jar jarfile="${dist}/cacheSim.jar" basedir="${build}">
 			<zipgroupfileset dir="lib" includes="jcommon-1.0.23.jar"/>
 			<zipgroupfileset dir="lib" includes="jfreechart-1.0.19.jar"/>
-			<zipgroupfileset dir="lib" includes="junit-4.11.jar"/>
 			<manifest>
 				<attribute name="Main-Class" value="gui.MainFrame"/>
 			</manifest>
