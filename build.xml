@@ -29,6 +29,7 @@
 		</jar>
 	</target>
 
+	<target name="test" depends="dist"/>
 	
 	<target name="clean">
 		<delete dir="${build}"/>
