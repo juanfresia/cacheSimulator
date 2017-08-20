@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/juanfresia/cacheSimulator.svg?branch=master)](https://travis-ci.org/juanfresia/cacheSimulator)
+
 # Cache Loop Simulator
 
 This application pretends to simulate at a basic level the loop test performed on a computer to characterize it's memory hierarchy. It was a two-week project made from scratch and it should not be taken as an OOP example. This tool does not provide an accurate simulation of real-world memory hierarchy as it hugely simplifies memory accesses (it completely neglects TLB, virtual memory, and time variations due to write policies), however it is accurate enough to visualize the patterns hidden behind the locality influence on cpu's performance. With that in mind, it is meant to give computer architecture students a little more insight into the behavior of memory hierarchy.
@@ -9,7 +11,7 @@ For those interested in this subject I would recommend to have a look at the fol
 - *"CPU performance evaluation and execution time prediction using narrow spectrum benchmarking" (1992), by Saavedra-Barrera*, has its fifht chapter dedicated to memory hierarchy characterization through loop test, and there it explains all the details of this technique.
 
 
-###About the implementation:
+### About the implementation:
 
 The program runs and simulates explicitly every single access to memory, and has proper structures to represent each type of cache. It does not use formulas to predict any of the results shown in the graphs. As for this first release, the application is only able to run loop tests on customized memory hierarchy. Originally it was meant to be a cache simulation with more scope, allowing the user to simulate arbitrary memory references sequences and to view step-by-step how the contents of the cache were updated. Even though the code is prepared to easily add this functionality, I preferred not to do so in order to have a clean first version to release, and because it would take more time and effort than expected in building the GUI. Maybe in a future update these features will be added in. 
 	
