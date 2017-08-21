@@ -80,6 +80,14 @@
 	  </formats>
 	  <maxmem>256m</maxmem>
 	  <aggregate>true</aggregate>
+	  <instrumentation>
+	    <ignores>
+	      <ignore>gui.*</ignore>
+	    </ignores>
+	    <excludes>
+              <exclude>gui/**/*.class</exclude>
+	    </excludes>
+	  </instrumentation>
   	</configuration>
      </plugin>
     </plugins>
