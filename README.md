@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/juanfresia/cacheSimulator.svg?branch=master)](https://travis-ci.org/juanfresia/cacheSimulator)
+[![Coverage Status](https://coveralls.io/repos/github/juanfresia/cacheSimulator/badge.svg?branch=master)](https://coveralls.io/github/juanfresia/cacheSimulator?branch=master)
 
 # Cache Loop Simulator
 
