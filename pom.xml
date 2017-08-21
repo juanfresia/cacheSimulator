@@ -7,6 +7,11 @@
   <version>1.0-SNAPSHOT</version>
   <name>cache</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -30,35 +35,59 @@
   </dependencies>
 
   <build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-assembly-plugin</artifactId>
+  	<plugins>
+          <!-- Plugin para generar .jar con las dependencias incluidas  -->
+  	  <plugin>
+  	    <groupId>org.apache.maven.plugins</groupId>
+  	    <artifactId>maven-assembly-plugin</artifactId>
+  	    <configuration>
+  	      <archive>
+  	        <index>true</index>
+  	        <manifest>
+  	          <mainClass>gui.MainFrame</mainClass>
+  	          <addClasspath>true</addClasspath>
+  	        </manifest>
+  	      </archive>
+  	      <descriptorRefs>
+  	        <descriptorRef>jar-with-dependencies</descriptorRef>
+  	      </descriptorRefs>
+  	    </configuration>
+  	    <executions>
+  	      <execution>
+  	        <id>make-assembly</id>
+		  <phase>package</phase>
+		  <goals>
+		    <goal>single</goal>
+  		  </goals>
+  	      </execution>
+  	    </executions>
+  	  </plugin>
+	
+      <plugin>
+        <groupId>org.eluder.coveralls</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
+	<version>4.3.0</version>
+      </plugin>
+  
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+	<version>2.7</version>
+	<configuration>
+	  <format>xml</format>
+	  <maxmem>256m</maxmem>
+	  <aggregate>true</aggregate>
+  	</configuration>  
+	<executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-      <configuration>
-        <archive>
-          <index>true</index>
-          <manifest>
-            <mainClass>gui.MainFrame</mainClass>
-            <addClasspath>true</addClasspath>
-          </manifest>
-        </archive>
-        <descriptorRefs>
-          <descriptorRef>jar-with-dependencies</descriptorRef>
-        </descriptorRefs>
-      </configuration>
-
-      <executions>
-        <execution>
-          <id>make-assembly</id>
-	  <phase>package</phase>
-	  <goals>
-	    <goal>single</goal>
-  	  </goals>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
+    </plugins>
   </build>
 
 </project>
