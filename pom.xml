@@ -78,14 +78,7 @@
 	  <maxmem>256m</maxmem>
 	  <aggregate>true</aggregate>
   	</configuration>  
-	<executions>
-          <execution>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+     </plugin>
 
     </plugins>
   </build>
